@@ -1,0 +1,42 @@
+library(tidyverse)
+library(ggpubr)
+theme_set(theme_pubr())
+data=read.table('1.csv',  sep=',',header=T)
+library("gridExtra")
+p1 <- ggplot(data, aes(x = saponin, y = abundance)) +
+  geom_point() +
+  stat_smooth()
+p2 <- ggplot(data, aes(x = Tanin, y = abundance)) +
+  geom_point() +
+  stat_smooth()
+p3 <- ggplot(data, aes(x = zf, y = abundance)) +
+  geom_point() +
+  stat_smooth()
+p4 <- ggplot(data, aes(x = acid, y = abundance)) +
+  geom_point() +
+  stat_smooth()
+grid.arrange(p1, p2, p3, p4,ncol= 4, nrow = 1)
+cor(data$abundance, data$saponin) 
+cor(data$abundance, data$Tanin)
+cor(data$abundance, data$zf)
+cor(data$abundance, data$acid)
+model <- lm(abundance ~ saponin, data = data)
+model 
+model <- lm(abundance ~ Tanin, data = data)
+model
+model <- lm(abundance ~ zf, data = data)
+model
+model <- lm(abundance ~ acid, data = data)
+model
+ggplot(data, aes(saponin, abundance)) +
+  geom_point() +
+  stat_smooth(method = lm)
+ggplot(data, aes(Tanin, abundance)) +
+  geom_point() +
+  stat_smooth(method = lm)
+ggplot(data, aes(zf, abundance)) +
+  geom_point() +
+  stat_smooth(method = lm)
+ggplot(data, aes(acid, abundance)) +
+  geom_point() +
+  stat_smooth(method = lm)
